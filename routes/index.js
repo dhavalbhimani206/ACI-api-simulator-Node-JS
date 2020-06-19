@@ -6,18 +6,6 @@ const {
 	spawn
 } = require('child_process');
 
-/*  This is the home route. It renders the index.mustache page from the views directory.
-	Data is rendered using the Mustache templating engine. For more
-	information, view here: https://mustache.github.io/#demo */
-// router.get('/', (req, res) => {
-// 	res.render('index', {text: 'This is the dynamic data. Open index.js from the routes directory to see.'})
-// })
-
-// const data = fs.readFileSync('test.txt', 'utf-8');
-// const lines = data.split(/\r?\n/);
-/*  This route render json data */
-// const mydata = [];
-
 router.all('*', (req, res) => {
 	var url = req.url
 	// url = encodeURI(url)
@@ -35,15 +23,14 @@ router.all('*', (req, res) => {
 	});
 	// in close event we are sure that stream is from child process is closed
 	python.on('close', (code) => {
-		// console.log('data' + mydata);
 		// console.log(`child process close all stdio with code ${code}`);
 		// send data to browser
-		// console.log(largeDataSet)
-		// var len = largeDataSet.length
-		// if (largeDataSet[len - 1] == ',')
-		// 	largeDataSet[len - 1] = ''
-		largeDataSet = JSON.parse(largeDataSet)
-		res.json(largeDataSet)
+		if (largeDataSet) {
+			largeDataSet = JSON.parse(largeDataSet)
+			res.json(largeDataSet)
+		} else {
+			res.json()
+		}
 	});
 })
 

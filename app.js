@@ -25,11 +25,6 @@ const api = require('./routes/api')
 app.use('/', index)
 app.use('/api', api) // sample API Routes
 
-// https.createServer(options, function (req, res) {
-// 	res.writeHead(200);
-// 	res.end("hello world\n");
-// }).listen(8000, "0.0.0.0");
-
 var httpsServer = https.createServer(options, app);
 httpsServer.listen(443, "0.0.0.0");
 
