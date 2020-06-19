@@ -1,24 +1,17 @@
 // Full Documentation - https://docs.turbo360.co
-const vertex = require('vertex360')({site_id: process.env.TURBO_APP_ID})
+const vertex = require('vertex360')({
+	site_id: process.env.TURBO_APP_ID
+})
 const express = require('express')
-
+const https = require('https');
 const app = express() // initialize app
 
-/*  
-	Apps can also be initialized with config options as shown in the commented out example below. Options
-	include setting views directory, static assets directory, and database settings. To see default config
-	settings, view here: https://docs.turbo360.co
+const fs = require('fs');
 
-const config = {
-	views: 'views', 							// Set views directory 
-	static: 'public', 							// Set static assets directory
-	logging: true,
-	// controllers: require('./controllers'), 	// only for CMS integration
-	db: vertex.nedb()
-}
-
-vertex.configureApp(app, config) // remove line 30 below and replace with this
-*/
+const options = {
+	key: fs.readFileSync('key.pem'),
+	cert: fs.readFileSync('cert.pem')
+};
 
 vertex.configureApp(app)
 app.use(vertex.setContext(process.env))
@@ -32,5 +25,13 @@ const api = require('./routes/api')
 app.use('/', index)
 app.use('/api', api) // sample API Routes
 
+// https.createServer(options, function (req, res) {
+// 	res.writeHead(200);
+// 	res.end("hello world\n");
+// }).listen(8000, "0.0.0.0");
 
+var httpsServer = https.createServer(options, app);
+httpsServer.listen(443, "0.0.0.0");
+
+// app.listen(80, '0.0.0.0')
 module.exports = app
