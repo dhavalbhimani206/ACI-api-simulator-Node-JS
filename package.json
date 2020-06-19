@@ -1,0 +1,28 @@
+{
+  "name": "API",
+  "version": "0.0.0",
+  "server": false,
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "serve": "turbo devserver",
+    "test": "",
+    "build": "",
+    "postinstall": "turbo postinstall"
+  },
+  "dependencies": {
+    "child_process": "^1.0.2",
+    "express": "^4.17.1",
+    "parseurl": "^1.3.2",
+    "send": "0.16.2",
+    "serve-static": "1.13.2",
+    "turbo360": "^1.8.68",
+    "vary": "^1.1.2",
+    "vertex360": "^0.29.9"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2",
+    "rimraf": "^2.6.2"
+  },
+  "format": "vertex"
+}
